@@ -5,10 +5,11 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
 class GRU(nn.Module):
 
-    def __init__(self, input_size, num_layers=2, hidden_size=128):
+    def __init__(self, input_size, output_size, num_layers=2, hidden_size=128):
         super(GRU, self).__init__()
         self.hidden_size = hidden_size
         self.input_size = input_size
+        self.output_size = output_size
         self.num_layers = num_layers
         self.lstm = nn.GRU(
             input_size=self.input_size,
@@ -17,7 +18,7 @@ class GRU(nn.Module):
             batch_first=True
         )
         self.drop = nn.Dropout(p=0.5)
-        self.fc = nn.Linear(self.hidden_size, self.input_size)
+        self.fc = nn.Linear(self.hidden_size, self.output_size)
 
     def forward(self, input_x, input_lens=None, prev_state=None):
         if prev_state is None:

@@ -5,11 +5,12 @@ from torch.nn.utils.rnn import pack_padded_sequence, pad_packed_sequence
 
 class LSTM2(nn.Module):
 
-    def __init__(self, input_size, num_layers=2, hidden_size=[128, 256],
+    def __init__(self, input_size, output_size, num_layers=2, hidden_size=[128, 256],
                  fc_size=128):
         super(LSTM2, self).__init__()
         self.hidden_size = hidden_size
         self.input_size = input_size
+        self.output_size = output_size
         self.num_layers = num_layers
         self.fc_size = fc_size
         self.lstm1 = nn.LSTM(
@@ -27,7 +28,7 @@ class LSTM2(nn.Module):
         self.drop = nn.Dropout(p=0.5)
         self.fc1 = nn.Linear(self.hidden_size[-1], self.fc_size)
         self.relu = nn.ReLU()
-        self.fc2 = nn.Linear(self.fc_size, self.input_size)
+        self.fc2 = nn.Linear(self.fc_size, self.output_size)
 
     def forward(self, input_x, input_lens=None, prev_state=None):
         if prev_state is None:
