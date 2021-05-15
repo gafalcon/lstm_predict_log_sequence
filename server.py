@@ -94,13 +94,14 @@ def predict_n():
     action, top_5_pred, top_5_p = predict.predict_next_action(
         None, request.json['req_type'], normalized_url, delta, objectId)
 
-    Seq.objects(id=currentSeqId).update(
-        push__actions=Action(url=url,
-                             norm_url=normalized_url,
-                             method=request.json['req_type'],
-                             objType= objectId),
-        push__predictions=top_5_pred[0],
-        push__prediction_probs=top_5_p[0]
+    if (currentSeqId):
+        Seq.objects(id=currentSeqId).update(
+            push__actions=Action(url=url,
+                                 norm_url=normalized_url,
+                                 method=request.json['req_type'],
+                                 objType= objectId),
+            push__predictions=top_5_pred[0],
+            push__prediction_probs=top_5_p[0]
         )
     response = {'action': f"{req} {objectId}",
                 'pred': list(top_5_pred),
