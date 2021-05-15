@@ -8,7 +8,7 @@ datasets = glob.glob("../datasets/kf/processed2/*csv")
 
 class SeqDataset(Dataset):
 
-    def __init__(self, seq_len=10):
+    def __init__(self, seq_len=10, datasets=datasets):
         self.seq_len = seq_len
         self.x, self.y, self.lens = [], [], []
 

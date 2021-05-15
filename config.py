@@ -1,12 +1,16 @@
 import argparse
 
 def parseArgs():
-    global model, lr, epochs, save
+    global model, lr, epochs, save, num_layers, hidden_size
+    global dataset_folder, train_data, test_data, all_data
     parser = argparse.ArgumentParser()
     parser.add_argument('-m', "--model", help="model to train")
     parser.add_argument('-e', "--epochs", type=int)
     parser.add_argument('-lr', "--learning-rate", type=float)
     parser.add_argument('-s', "--save", help="filename to save model")
+    parser.add_argument('-l', "--num-layers", type=int, help="num layers of model")
+    parser.add_argument('-hs', "--hidden-size", type=int, help="hidden dimension of rnn model")
+    parser.add_argument('-d', "--dataset-folder", help="path to dataset folder")
     args = parser.parse_args()
     if args.model:
         model = args.model
@@ -16,6 +20,15 @@ def parseArgs():
         lr = args.learning_rate
     if args.save:
         save = args.save
+    if args.num_layers:
+        num_layers = args.num_layers
+    if args.hidden_size:
+        hidden_size = args.hidden_size
+    if args.dataset_folder:
+        dataset_folder = args.dataset_folder
+        train_data = f"{dataset_folder}/processed/train/*csv"
+        test_data = f"{dataset_folder}/processed/test/*csv"
+        all_data = f"{dataset_folder}/processed/*csv"
     print(args)
 
 model = "lstm1"
@@ -29,6 +42,10 @@ lr = 0.001
 epochs = 50
 save = None
 
+dataset_folder = "./datasets/kf/"
+train_data = f"{dataset_folder}/processed/train/*csv"
+test_data = f"{dataset_folder}/processed/test/*csv"
+all_data = f"{dataset_folder}/processed/*csv"
 
 x_columns = ['t_0', 't_1', 't_2','t_3', 'url_0', 'url_1', 'url_2', 'url_3', 'url_4', 'url_5', 'url_6',
              'url_7', 'url_8', 'url_9', 'url_10', 'url_11', 'url_12', 'url_13',
@@ -170,3 +187,4 @@ predicted_seq_types = [
     'edit_object',
     'end'
 ]
+

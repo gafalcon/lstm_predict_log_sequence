@@ -1,0 +1,11 @@
+POST, /api/contributions/5f03b3bd13c79557224b7363, 14:47:28, 127.0.0.1, 0.0, new_note
+POST, /api/links/, 14:47:28, 127.0.0.1, 0.0, post_link_view_note
+GET, /api/authors/5f03b3bd13c79557224b7363/me, 14:47:29, 127.0.0.1, 1.0, get_author
+POST, /api/contributions/5f03b3bd13c79557224b7363, 14:47:47, 127.0.0.1, 18.0, new_attachment
+POST, /api/upload, 14:47:47, 127.0.0.1, 0.0, upload_attachment
+PUT, /api/objects/5f03b3bd13c79557224b7363/60633a13620841af71f6a51a, 14:47:47, 127.0.0.1, 0.0, edit_object
+POST, /api/links, 14:47:47, 127.0.0.1, 0.0, post_link
+GET, /api/links/from/60633a00620841af71f6a515, 14:48:01, 127.0.0.1, 14.0, get_links_from_contrib
+PUT, /api/objects/5f03b3bd13c79557224b7363/60633a00620841af71f6a515, 14:48:01, 127.0.0.1, 0.0, edit_note
+POST, /api/notifications/notify/5f03b3bd13c79557224b7363, 14:48:01, 127.0.0.1, 0.0, notify_comm
+POST, /api/records/read/5f03b3bd13c79557224b7363/60633a00620841af71f6a515, 14:48:01, 127.0.0.1, 0.0, record_note_edited

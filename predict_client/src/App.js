@@ -65,7 +65,7 @@ class App extends Component {
         this.subscribeToNewActions = this.subscribeToNewActions.bind(this);
         this.setNewAction = this.setNewAction.bind(this)
         this.setIdx = this.setIdx.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleFileSubmit = this.handleFileSubmit.bind(this);
     }
 
     setNewAction(newAction){
@@ -135,7 +135,7 @@ class App extends Component {
         }
     }
 
-    handleSubmit(event){
+    handleFileSubmit(event){
         event.preventDefault();
         console.log(this.fileInput.current.files)
         let formData = new FormData();
@@ -168,7 +168,7 @@ class App extends Component {
             <div className="container">
                 <h1>Predict KF Actions</h1>
                 <div className="row">
-                    <form onSubmit={this.handleSubmit}>
+                    <form onSubmit={this.handleFileSubmit}>
                         <div className="mb-3">
                             <label htmlFor="formFile" className="form-label">Submit log file to predict actions</label>
                             <input className="form-control" type="file" id="formFile" ref={this.fileInput}/>

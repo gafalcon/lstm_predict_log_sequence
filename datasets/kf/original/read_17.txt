@@ -1,0 +1,4 @@
+GET, /api/objects/5f65c2afa47e501fdf3ffbf9, 16:02:17, 127.0.0.1, 0.0, get_note
+GET, /api/links/to/5f65c2afa47e501fdf3ffbf9, 16:02:18, 127.0.0.1, 1.0, get_links_to_note
+GET, /api/links/from/5f243b4d4fe00c7291dd4f4c, 16:02:19, 127.0.0.1, 1.0, get_links_from
+POST, /api/records/read/5f243b4d4fe00c7291dd4f4a/5f65c2afa47e501fdf3ffbf9, 16:02:19, 127.0.0.1, 0.0, record_note_read
