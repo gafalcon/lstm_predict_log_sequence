@@ -4,8 +4,7 @@ import pandas as pd
 import config
 import glob
 
-filename = "../datasets/kf/processed/edit_10.csv"
-datasets = glob.glob("../datasets/kf/processed/*csv")
+datasets = glob.glob("../datasets/kf/processed2/*csv")
 
 class SeqDataset(Dataset):
 
@@ -21,7 +20,7 @@ class SeqDataset(Dataset):
 
     def load_dataset(self, filename):
         df = pd.read_csv(filename)
-        seq_len = min(len(df)-1, self.seq_len)
+        seq_len = min(len(df)-2, self.seq_len)
         x = df.loc[range(seq_len), config.x_columns].values
         y = df.loc[range(1, seq_len+1), config.y_columns].values
         y = y.argmax(axis=1)

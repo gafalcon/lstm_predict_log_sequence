@@ -1,15 +1,43 @@
+import argparse
+
+def parseArgs():
+    global model, lr, epochs, save
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-m', "--model", help="model to train")
+    parser.add_argument('-e', "--epochs", type=int)
+    parser.add_argument('-lr', "--learning-rate", type=float)
+    parser.add_argument('-s', "--save", help="filename to save model")
+    args = parser.parse_args()
+    if args.model:
+        model = args.model
+    if args.epochs:
+        epochs = args.epochs
+    if args.learning_rate:
+        lr = args.learning_rate
+    if args.save:
+        save = args.save
+    print(args)
+
+model = "lstm1"
 MODEL_PATH = "./models"
 num_layers = 2
 lstm_hidden_size = 128
+hidden_size = 128
 batch_size = 1
+seq_len = 30
+lr = 0.001
+epochs = 50
+save = None
+
+
 x_columns = ['t_0', 't_1', 't_2','t_3', 'url_0', 'url_1', 'url_2', 'url_3', 'url_4', 'url_5', 'url_6',
              'url_7', 'url_8', 'url_9', 'url_10', 'url_11', 'url_12', 'url_13',
-             'url_14', 'url_15', 'url_16', 'url_17', 'delta']
+             'url_14', 'url_15', 'url_16', 'url_17', 'delta', 'objTypeId']
 
 y_columns = ['seq_type_0', 'seq_type_1','seq_type_2', 'seq_type_3', 'seq_type_4', 'seq_type_5', 'seq_type_6',
              'seq_type_7', 'seq_type_8', 'seq_type_9', 'seq_type_10', 'seq_type_11','seq_type_12', 'seq_type_13',
              'seq_type_14', 'seq_type_15','seq_type_16', 'seq_type_17', 'seq_type_18', 'seq_type_19', 'seq_type_20',
-             'seq_type_21', 'seq_type_22']
+             'seq_type_21', 'seq_type_22', 'seq_type_23']
 
 input_size = len(x_columns)
 output_size = len(y_columns)
@@ -34,7 +62,8 @@ urls = [
     '/api/authors/objectId/me',
     '/api/links/objectId',
     '/api/objects/objectId/objectId',
-    '/api/links/to/objectId'
+    '/api/links/to/objectId',
+    'end'
 ]
 
 seq_types = [
@@ -60,7 +89,8 @@ seq_types = [
     'new_attachment',
     'upload_attachment',
     'edit_object',
-    'post_link'
+    'post_link',
+    'end'
 ]
 
 new_row = {'type': 'GET', 'url': 'start', 'delta': 0.0, 'seq_type': 'start'}
@@ -89,6 +119,7 @@ seq_type_to_url = {
     'upload_attachment': '/api/upload',
     'edit_object':'/api/objects/objectId',
     'post_link': '/api/links',
+    'end': 'end'
 }
 
 seq_type_to_req_type = {
@@ -114,5 +145,28 @@ seq_type_to_req_type = {
     'new_attachment': 'POST',
     'upload_attachment': 'POST',
     'edit_object': 'GET',
-    'post_link': 'POST'
+    'post_link': 'POST',
+    'end': 'GET'
 }
+
+id_to_objType = ['', 'Note', 'Scaffold', 'Attachment', 'Context']
+objType_to_id = {t:i for i,t in enumerate(id_to_objType)}
+
+predicted_seq_types = [
+    'start',
+    'get_note',
+    'record_note_read',
+    'edit_note',
+    'notify_comm',
+    'record_note_edited',
+    'get_groups',
+    'search',
+    'post_scaffold',
+    'get_note_records',
+    'get_author',
+    'delete_scaffold',
+    'new_note',
+    'new_attachment',
+    'edit_object',
+    'end'
+]

@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import config
 
-model_file = "lstm.pth"
+model_file = "lstmv1"
 seq_types = np.array(config.seq_types)
 input_size = config.input_size
 output_size = config.output_size
@@ -35,17 +35,18 @@ init_seq = ['start']
 action = None
 
 def initialize_seq(init_seq):
-    global seq, seq_x
+    global seq, seq_x, action
     seq = []
     seq_x = []
-    for action in init_seq:
-        seq.append(action)
-        new_input = create_input(action)
+    action = None
+    for a in init_seq:
+        seq.append(a)
+        new_input = create_input(a)
         seq_x.append(new_input)
 
 
 def predict_next_action(newAction=None):
-    global action
+    global action, seq, seq_x
     if newAction is not None:
         action = newAction
     if action is not None:

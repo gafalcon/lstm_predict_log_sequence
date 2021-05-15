@@ -11,7 +11,7 @@ class GRU(nn.Module):
         self.input_size = input_size
         self.output_size = output_size
         self.num_layers = num_layers
-        self.lstm = nn.GRU(
+        self.gru = nn.GRU(
             input_size=self.input_size,
             hidden_size=self.hidden_size,
             num_layers=num_layers,
@@ -28,7 +28,7 @@ class GRU(nn.Module):
         packed_input = pack_padded_sequence(
             input_x, input_lens, batch_first=True, enforce_sorted=False
         )
-        packed_output, state = self.lstm(packed_input, prev_state)
+        packed_output, state = self.gru(packed_input, prev_state)
 
         output, _ = pad_packed_sequence(packed_output, batch_first=True)
 
